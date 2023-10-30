@@ -1,65 +1,60 @@
-/*Rachel Berlin 212316400
-Michal Seror 212329221
-Ex3*/
-#include<iostream>
+/*RACHEL BERLIN 212316400
+MICHAL HABIB 212329221*/
+#include <iostream>
+#include <queue>
 #include <list>
 #include <string>
-#include "Trie.h"
+#include <cmath>
+#include "HuffmanNode.h"
+#include "HuffmanTree.h"
 using namespace std;
 
-int main()//
+
+int main()
 {
+	char choice;
+	string word;
+	int n;
+	string letters, structure, enCode;
 
-	char ch;
-	string wrd;
-	Trie tr;
-	int comp;
-	cout << "\nTRIE PROGRAM" << endl;
-	
-	cout << "\nChoose one of the following" << endl;
-	cout << "1: add a new item" << endl;
-	cout << "2: delete an item" << endl;
-	cout << "3: check if an item exists " << endl;
-	cout << "4: complete the possible item name " << endl;
-	cout << "5: exit " << endl;
-	do {
-	
-		cin >> ch;
+	HuffmanTree* t; 
 
-		switch (ch)
+
+	cout << "enter E to encode a text\n";
+	cout << "enter D to decode a text\n";
+	cout << "enter X to exit\n";
+
+	do
+	{
+		cin >> choice;
+		switch (choice)
 		{
-		case '1':
-			cout << "Enter a word to insert " << endl;
-			cin >> wrd;
-			tr.insertWord(wrd);
+		case 'E':
+            t = new HuffmanTree();
+			cout << "enter the original text" << endl;
+			cin >> word;
+			t->buildHuffmanTree(word);
+			cout << "The encoded string is:\n";
+			cout << t->getNum() << endl;
+			cout << t->getLetters() << endl;
+			cout << t->getStruct() << endl;
+			cout << t->getCode() << endl;
 			break;
-		case '2':
-			cout << "Enter a word to del " << endl;
-			cin >> wrd;
-			if (!tr.deleteWord(wrd)) cout << "ERROR\n";
+		case 'D':
+            t = new HuffmanTree();
+			cout << "enter n " << endl;
+			cin >> n;
+			cout << "enter the letters " << endl;
+			cin >> letters;
+			cout << "enter the encoded structure " << endl;
+			cin >> structure;
+			cout << "enter the encoded text " << endl;
+			cin >> enCode;
+			t->treeConversion(n, letters, structure, enCode);
 			break;
-		case '3':
-			cout << "Enter a word to search " << endl;
-			cin >> wrd;
-			if (tr.searchWord(wrd))
-				cout << "exists\n";
-			else
-				cout << "does not exist\n";
-			break;
+		}
 
-		case '4':
-			cout << "Enter a prefix to complete " << endl;
-			cin >> wrd;
-			comp = tr.printAutoSuggestions(wrd);
-
-			if (comp == false)
-				cout << "No string exist with this prefix\n";
-			break;
-		case '5':cout << "bye " << endl; break;
-		default: cout << "ERROR " << endl;  break;
-		}//switch
-	} while (ch != '5');
+	} while (choice != 'X');
+	cout<<"bye";
 	return 0;
-
 }
-
